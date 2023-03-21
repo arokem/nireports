@@ -33,20 +33,18 @@ from nireports.assembler.misc import dict2html, read_crashfile
 
 SVG_SNIPPET = [
     """\
+<div class="reportlet">
 <object class="svg-reportlet" type="image/svg+xml" data="./{0}">
 Problem loading figure {0}. If the link below works, please try \
 reloading the report in your browser.</object>
 </div>
-<div class="elem-filename">
-    Get figure file: <a href="./{0}" target="_blank">{0}</a>
-</div>
+<small>Get figure file: <a href="./{0}" target="_blank">{0}</a></small>
 """,
     """\
+<div class="reportlet">
 <img class="svg-reportlet" src="./{0}" style="width: 100%" />
 </div>
-<div class="elem-filename">
-    Get figure file: <a href="./{0}" target="_blank">{0}</a>
-</div>
+<small>Get figure file: <a href="./{0}" target="_blank">{0}</a></small>
 """,
 ]
 
@@ -78,7 +76,7 @@ data-bs-parent="#{metadata_id}-{metadata_index}">
 ERROR_TEMPLATE = """
     <details>
         <summary>Node Name: {node}</summary><br>
-        <div>
+        <div class="fs-2">
             File: <code>{file}</code><br />
             Working Directory: <code>{node_dir}</code><br />
             Inputs: <br />
@@ -101,7 +99,8 @@ aria-selected="{selected}">{tab_title}</button>
 BOILERPLATE_TXT_TEMPLATE = """
         <div class="tab-pane fade {active}" id="{anchor}-tab-pane" role="tabpanel" \
 aria-labelledby="{anchor}-tab" tabindex="0">
-            <div class="boiler-{anchor}">{body}</div>
+            <div class="boiler-{anchor} p-3 m-4 bg-primary" \
+style="--bs-bg-opacity: .04">{body}</div>
         </div>
 """
 

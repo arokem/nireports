@@ -1,4 +1,5 @@
 packagename: nireports
+title: Visual report for participant '{subject_id}'
 sections:
 - name: Summary
   reportlets:
@@ -207,3 +208,81 @@ sections:
       Thanks for using <em>NiReports</em>. The following information may assist in
       reconstructing the provenance of the corresponding derivatives.
     title: Reproducibility and provenance information
+
+plugins:
+  - type: widget
+    id: qcratings
+    settings:
+      width: 30%
+      top: 100px
+      left: 65%
+    switch:
+      position: navbar
+      margin-right: 10px
+      id: rating-toggler
+      label: Rating widget
+    endpoint: "/rating"
+    sections:
+      - id: qcslider
+        title: Overall Quality Rating
+        collapse: false
+        items:
+          - settings:
+              class: slider
+              type: range
+              step: '0.05'
+              value: '2.5'
+            options:
+              - ['Exclude', 1.0, 'danger']
+              - ['Poor', 2.0, 'warning']
+              - ['Acceptable', 3.0, 'primary']
+              - ['Excellent', 4.0, 'success']
+      - id: qcartifacts
+        title: Record specific artifacts
+        collapse: true
+        settings:
+          type: checkbox
+        options:
+          head-motion: Head motion artifacts
+          eye-spillover: Eye spillover through <abbr title="phase-encoding">PE</abbr> axis
+          noneye-spillover: Non-eye spillover through <abbr title="phase-encoding">PE</abbr> axis
+          coil-failure: Coil failure
+          noise-global: Global noise
+          noise-local: Local noise
+          em-perturbation: <abbr title="electromagnetic">EM</abbr> interference/perturbation
+          wrap-around: Problematic <abbr title="field-of-view">FoV</abbr> prescription / wrap-around
+          ghost-aliasing: Aliasing ghosts
+          ghost-other: Other ghosts (for example, <abbr title="radiofrequency">RF</abbr> spoiling)
+          inu: Intensity non-uniformity (B<sub>1</sub> bias)
+          field-variation: Temporal B<sub>1</sub> field non-uniformity variation
+          processing: Processing such as denoising, defacing or resamplings happened
+          uncategorized: Other uncategorized artifact(s)
+      - id: qcextra
+        title: Extra details
+        collapse: true
+        items:
+          - settings:
+              type: textarea
+              label: Comments
+          - settings:
+              label: Rater confidence
+              class: slider
+              type: range
+              step: '0.05'
+              value: '3.5'
+            options:
+              - ['Doubtful', 0.0, 'warning']
+              - ['Confident', 4.0, 'success']
+      - items:
+        - settings:
+            id: btn-download
+            href: ""
+            text: Download
+            type: anchor
+            disabled: true
+        - settings:
+            id: btn-post
+            disabled: true
+            type: button
+            value: <secret_token>
+            text: Share publicly
